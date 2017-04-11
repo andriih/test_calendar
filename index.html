@@ -4,12 +4,44 @@
 	<meta charset="UTF-8">
 	<title>Calendar</title>
 	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
 	<div class="wrapper">
 		<div class="container">
 			<div class="row">
-				
+				<form class="form-inline">
+					<fieldset>
+	   					<legend>Enter date</legend>
+							<div class="form-group">
+								<label for="year">Year:</label>
+		    					<input type="number" class="form-control" id="year">
+							</div>
+
+							<div class="form-group">
+								<label for="month">Month:</label>
+		    					<select class="form-control" id="month">
+
+									  <option value="jenuary" selected>Jenuary</option>
+									  <option value="february">February</option>
+									  <option value="march">March</option>
+									  <option value="april">April</option>
+									  <option value="may" >May</option>
+									  <option value="june">June</option>
+									  <option value="july">July</option>
+									  <option value="august">August</option>
+									  <option value="september">September</option>
+									  <option value="october">October</option>
+									  <option value="november">November</option>
+									  <option value="december">December</option>
+
+									</select>
+							</div>
+							<button type="submit" class="btn btn-success">Show Calendar</button>
+					</fieldset>
+
+				</form>
 			</div>
 		</div>
 	</div>
