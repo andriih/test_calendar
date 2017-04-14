@@ -1,5 +1,41 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.btn-date{
+	width: 40px;
+	height: 100%;
+}
+.btn-date:hover{
+	background-color: #d9ffcc;
+}
 .cell{
 	border: 1px solid black;
 	width: 40px;
 	height: 40px;
+	text-align: center;
 }
+
+th{
+	border: 1px solid white;
+	width: 41px;
+	height: 40px;
+	background-color: black;
+	color:white;
+	text-align: center;
+
+}
+
+.tbl{
+	border: 1px solid black;
+}
+
+.year, .month{
+	margin-right: 10px;
+}
+
+.center-block{
+	margin-bottom:20px;
+}
+

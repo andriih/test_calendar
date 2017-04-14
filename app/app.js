@@ -1,99 +1,79 @@
+//Year pick list
+
+$(document).ready(function () {
+    for (var i = new Date().getFullYear(); i > 1900; i--) {
+        $('#yearpicker').append($('<option />').val(i).html(i));
+    }
+});
 
 
-// function createCalendar(id, year, month){
-// 	var dt= new Date();
-// 		var month=dt.getMonth(); // read the current month
-// 		var year=dt.getFullYear(); // read the current year
-//
-// 		dt=new Date(year, month, 01);//Year , month,date format
-//
-// 		var first_day=dt.getDay(); //, first day of present month
-// 		document.write("first_day=" + first_day + "<br><br>");
-//
-// 		dt.setMonth(month+1,0); // Set to next month and one day backward.
-// 		var last_date=dt.getDate(); // Last date of present month
-// 		document.write(dt); // Last date in full
-// 		document.write("<br><br> Last Date of the month =" + last_date + "<br><br>");
-//
-// 		var dy=1; // day variable for adjustment of starting date.
-// 		document.write ("<table><tr><td>Su</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>");
-//
-// 		for(i=0;i<=41;i++){
-// 		if((i%7)==0){document.write("</tr><tr>");} // if week is over then start a new line
-// 		if((i>= first_day) && (dy<= last_date)){
-// 		document.write("<td>"+ dy +"</td>");
-// 		dy=dy+1;
-// 		}else {document.write("<td>*</td>");} // Blank dates.
-// 		} // end of for loop
-//
-// 		document.write("</tr></table>")
-// };
+//Main function
+function createCalendar(id, y, m) {
+
+    var destLocation = document.getElementById(id),
+        y = $('#yearpicker').val(),//get Year from form
+        m = $('#month').val();//get Month from form
 
 
-// var formYear    = $('#month').val(),
-//     formMonth   = $('#year').val();
-// console.log(formYear);
-// console.log(formMonth);
+    var dt = new Date(y, m, 01);
+
+    var month = dt.getMonth();
+
+    var year = dt.getFullYear();
+
+    dt = new Date(year, month, 01);//Year , month,date format
+
+    var first_day = dt.getDay(); //, first day of present month
+
+    dt.setMonth(month + 1, 0); // Set to next month and one day backward.
+
+    var last_date = dt.getDate(); // Last date of present month
 
 
-function createCalendar(id, yearF, monthF){
-    var destLocation = document.getElementById(id);
-    var y = $('#year').val(),
-        m = $('#month').val();
+    var dy = 1; // day variable for adjustment of starting date.
 
-	///////////////////////////////////////FUNc
-    var dt = new Date(y,m,01);
-    var month =dt.getMonth(); // read the current month
-    var year =dt.getFullYear(); // read the current year
+    $(destLocation)
+        .append("<table id='tbl' class='tbl'><tr><th>Su</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>");
 
-    dt =new Date(year, month, 01);//Year , month,date format
+    for (var i = 0; i <= 41; i++) {
+        if ((i % 7) == 0) {
+            $(destLocation).append("</tr><tr>");
+        } // if week is over then start a new line
+        if ((i >= first_day) && (dy <= last_date)) {
 
-    var first_day=dt.getDay(); //, first day of present month
-    document.write("first_day=" + first_day + "<br><br>");
+            $(destLocation).append("<td class='cell'><button id='" + dy + "' type='button' class='btn btn-date' data-toggle='modal'                             data-target='#myModal'>" + dy + "</button></td>");
 
-    dt.setMonth(month+1,0); // Set to next month and one day backward.
+            dy = dy + 1;
 
-    var last_date=dt.getDate(); // Last date of present month
-    document.write(dt); // Last date in full
-    document.write("<br><br> Last Date of the month =" + last_date + "<br><br>");
-
-    var dy=1; // day variable for adjustment of starting date.
-    document.write("<table><tr><td>Su</td><td>Mon</td><td>Tue</td><td>Wed</td><td>Thu</td><td>Fri</td><td>Sat</td>");
-
-    for(i=0;i<=41;i++){
-        if((i%7)==0){document.write("</tr><tr>");} // if week is over then start a new line
-        if((i>= first_day) && (dy<= last_date)){
-            document.write("<td>"+ dy +"</td>");
-            dy=dy+1;
-        }else {document.write("<td>*</td>");} // Blank dates.
+        } else {
+            $(destLocation).append("<td class='cell'>*</td>"); // Blank dates.
+        }
     } // end of for loop
 
-    document.write("</tr></table>")
-	///////////////////////////////////////FUNC END
+    $(destLocation).append("</tr></table>");
 
-	// var destLocation = document.getElementById(id);
-	// var days  = new Date(formYear, formMonth, 0).getDate();
-	// var table = $(destLocation).append('<table></table>').addClass('table table-bordered table striped');
-	//
-	// for(var i = 1; i<=days;i++){
-	//
-	// 	for (var j =1; j<=7;j++){
-	// 		var tr = $(table).append('<tr><td>'+i+'</td></tr>');
-	// 	}
-    //
-	//
-    //
-	//
-	// }
+    $(destLocation).click(function (e) {
+        var btnId = e.target.id; //get current click target
+        var btnText = $("#" + btnId).text();
+        var month = $('#month option:selected').text();
 
-	 
-	//console.log(table);
+        $('#numberOfMonth').text(btnText); //fill both fields with true date
+        $('#currentMonth').text(month);
 
+    });
 };
 
-$('#calendar-form').submit(function(e){
-	e.preventDefault();
 
-	createCalendar("calendar__wrapper");
-	
+//Submit handler
+
+$('#calendar-form').submit(function (e) {
+
+    $('#calendar__wrapper').empty();
+
+    createCalendar("calendar__wrapper");
+
+    e.preventDefault();
+
 });
+
+
